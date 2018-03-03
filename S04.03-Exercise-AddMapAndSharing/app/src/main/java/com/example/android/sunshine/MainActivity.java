@@ -211,18 +211,37 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
         return true;
     }
 
+    private void openMap() {
+        String address = "1600 Pennsylvannia Ave";
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("geo").path("0,0").query(address);
+        Uri mapURI = builder.build();
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(mapURI);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_refresh) {
-            mForecastAdapter.setWeatherData(null);
-            loadWeatherData();
-            return true;
+        switch (id) {
+            case R.id.action_refresh:
+                mForecastAdapter.setWeatherData(null);
+                loadWeatherData();
+                return true;
+            case R.id.action_map:
+                // COMPLETED (2) Launch the map when the map menu item is clicked
+                openMap();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        // TODO (2) Launch the map when the map menu item is clicked
 
-        return super.onOptionsItemSelected(item);
     }
 }
