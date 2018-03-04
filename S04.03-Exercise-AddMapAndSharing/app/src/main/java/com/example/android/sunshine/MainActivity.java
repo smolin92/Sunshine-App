@@ -212,9 +212,9 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
     }
 
     private void openMap() {
-        String address = "1600 Pennsylvannia Ave";
+        String address = "Columbia University";
         Uri.Builder builder = new Uri.Builder();
-        builder.scheme("geo").path("0,0").query(address);
+        builder.scheme("geo").path("0,0").appendQueryParameter("q", address);
         Uri mapURI = builder.build();
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
